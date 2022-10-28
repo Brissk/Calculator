@@ -12,18 +12,33 @@ public class View {
         c.setImage(in.nextDouble());
         return c;
     }
+    Rational getValue1() {
+        Rational c = new Rational();
+        System.out.print("Введите рациональное число ");
 
-    String print(String title, Complex result) {
+        c.setReal(in.nextDouble());
+        return c;
+    }
+
+    String printComplex(String title, Complex result) {
 
         StringBuilder sb = new StringBuilder();
 
         if (result.getImage() >= 0)
-            sb.append(String.format("%s%.2f+%.2fi", title, result.getReal(), result.getImage()));
+            sb.append(String.format("\n%s%.2f+%.2fi\n", title, result.getReal(), result.getImage()));
 
         else
-        sb.append(String.format("%s%.2f %.2fi", title, result.getReal(), result.getImage()));
+            sb.append(String.format("\n%s%.2f %.2fi\n", title, result.getReal(), result.getImage()));
         return sb.toString();
 
     }
+    String printRational(String title, Rational result) {
 
+        StringBuilder sb = new StringBuilder();
+
+            sb.append(String.format("\n%s%.2f\n", title, result.getReal()));
+
+        return sb.toString();
+
+    }
 }

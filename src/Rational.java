@@ -1,8 +1,8 @@
-class Rational{
+class Rational extends Numbers{
     double real; // реальная часть
 
 
-    public Rational(double real) {// конструктор с параметрами
+    public Rational(double real) {
         this.real = real;
 
     }
@@ -15,7 +15,7 @@ class Rational{
         return real;
     }
 
-    protected void setReal(double real) {
+    public void setReal(double real) {
         this.real = real;
     }
 

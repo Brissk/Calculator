@@ -10,9 +10,25 @@ class SumModel extends  CalcModel {
     }
 
     @Override
+    public Rational result1() {
+        double newReal = super.c.getReal()+super.d.getReal();
+        return new Rational(newReal);
+    }
+
+    @Override
     public void setA(Complex c) {
         super.a.real = c.getReal();
         super.a.image = c.getImage();
+    }
+    @Override
+    public void setRatioA(Rational r) {
+
+        super.c.real = r.getReal();
+    }
+    @Override
+    public void setRatioB(Rational r) {
+
+        super.d.real = r.getReal();
     }
 
     @Override
