@@ -1,17 +1,28 @@
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.*;
+import java.util.logging.FileHandler.*;
 
 public class Presenter {
     View v;
     Model m;
     Scanner in = new Scanner(System.in);
+    Logger logger;
+    FileHandler fh;
+    SimpleFormatter sFormat;
 
     Presenter() {
 
     }
 
-    Presenter(View v, Model m) {
+    Presenter(View v, Model m) throws IOException {
         this.v = v;
         this.m = m;
+        logger = Logger.getLogger("CalcLog");
+        fh = new FileHandler("log.txt",true);
+        logger.addHandler(fh);
+        sFormat = new SimpleFormatter();
+        fh.setFormatter(sFormat);
     }
 
 
@@ -22,6 +33,7 @@ public class Presenter {
         m.setB(b);
         Complex result = m.result();
         System.out.println(v.printComplex("Результат ", result));
+        this.logger.log(Level.INFO, v.printComplex("", result));
     }
     void resultRational() {
         Rational a = v.getValue1();
@@ -30,20 +42,19 @@ public class Presenter {
         m.setRatioB(b);
         Rational result = m.result1();
         System.out.println(v.printRational("Результат ", result));
+        this.logger.log(Level.INFO, v.printRational("", result));
     }
 
 
-    void menu() {
+    void menu() throws IOException {
         boolean b = true;
         while (b) {
             System.out.println("Choose any variant: \n1:Summary\n2:Subtraction\n3:Multiply\n4:Division\n5:Exit");
-            Integer key = in.nextInt();
             Presenter p;
-            switch (key) {
+            switch (in.nextInt()) {
                 case 1:
                     System.out.println("Choose any variant: \n1:Rational\n2:Complex\n3:<--Previous");
-                    Integer key1 = in.nextInt();
-                    switch (key1) {
+                    switch (in.nextInt()) {
                         case 1:
                             p = new Presenter(new View(), new SumModel());
                             p.resultRational();
@@ -58,8 +69,7 @@ public class Presenter {
                     break;
                 case 2:
                     System.out.println("Choose any variant: \n1:Rational\n2:Complex\n3:<--Previous");
-                    Integer key2 = in.nextInt();
-                    switch (key2) {
+                    switch (in.nextInt()) {
                         case 1:
                             p = new Presenter(new View(), new SubtractionModel());
                             p.resultRational();
@@ -74,8 +84,7 @@ public class Presenter {
                     break;
                 case 3:
                     System.out.println("Choose any variant: \n1:Rational\n2:Complex\n3:<--Previous");
-                    Integer key3 = in.nextInt();
-                    switch (key3) {
+                    switch (in.nextInt()) {
                         case 1:
                             p = new Presenter(new View(), new MultiplyModel());
                             p.resultRational();
@@ -90,8 +99,7 @@ public class Presenter {
                     break;
                 case 4:
                     System.out.println("Choose any variant: \n1:Rational\n2:Complex\n3:<--Previous");
-                    Integer key4 = in.nextInt();
-                    switch (key4) {
+                    switch (in.nextInt()) {
                         case 1:
                             p = new Presenter(new View(), new DivideModel());
                             p.resultRational();
